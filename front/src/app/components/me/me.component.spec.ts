@@ -25,15 +25,9 @@ describe('MeComponent', () => {
 
   const userMock = {
     id: 1,
-    email: 'test@yoga.fr',
-    lastName: 'LASTNAME',
-    firstName: 'FirstName',
-    admin: true,
-    password: 'fjhzbefhbhbbhgz55655',
-    createdAt: '2024/12/12',
-    updatedAt: '2024/12/12',
   };
 
+  // Mock services
   const mockSessionService = {
     sessionInformation: {
       admin: true,
@@ -80,41 +74,45 @@ describe('MeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call userService.getById on initialisation', () => {
-    expect(mockUserService.getById).toHaveBeenCalledTimes(1);
+  // initialisation
+  describe('on initialisation', () => {
+    it('should call userService.getById', () => {
+      expect(mockUserService.getById).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fill user', () => {
+      expect(component.user).toBe(userMock);
+    });
+
+    it('should be same user id that sessionInformation', () => {
+      expect(component.user?.id).toBe(mockSessionService.sessionInformation.id);
+    });
   });
 
-  it('should fill user on initialisation', () => {
-    expect(component.user).toBe(userMock);
-  });
-
-  it('should call window.history.back on back call', () => {
+  // back()
+  it('should call window.history.back on back() call', () => {
     const windowHistoryBackSpy = jest.spyOn(window.history, 'back');
     component.back();
     expect(windowHistoryBackSpy).toHaveBeenCalled();
   });
 
-  it('should call userService.delete on delete call', waitForAsync(() => {
-    component.delete();
+  // delete()
+  describe('on delete() call', () => {
+    beforeEach(waitForAsync(() => {
+      component.delete();
+      fixture.whenStable();
+    }));
 
-    fixture.whenStable().then(() => {
+    it('should call userService.delete', () => {
       expect(mockUserService.delete).toHaveBeenCalledTimes(1);
     });
-  }));
 
-  it('should call sessionService.logOut after userService.delete', waitForAsync(() => {
-    component.delete();
-
-    fixture.whenStable().then(() => {
+    it('should call sessionService.logOut after userService.delete', () => {
       expect(mockSessionService.logOut).toHaveBeenCalledTimes(1);
     });
-  }));
 
-  it('should navigate to "/" after user deletion', waitForAsync(() => {
-    component.delete();
-
-    fixture.whenStable().then(() => {
+    it('should navigate to "/" after user deletion', () => {
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
     });
-  }));
+  });
 });

@@ -45,6 +45,7 @@
     "@cypress/schematic": "2.0.3",
     "@istanbuljs/nyc-config-typescript": "1.0.2",
     "@jsdevtools/coverage-istanbul-loader": "3.0.5",
+    "@testing-library/angular": "^12.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.5.2",

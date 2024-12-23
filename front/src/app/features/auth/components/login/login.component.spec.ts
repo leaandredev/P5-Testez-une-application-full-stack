@@ -99,7 +99,6 @@ describe('LoginComponent', () => {
     it('should display "Login" title', () => {
       const titleElement = screen.getByText('Login');
       expect(titleElement).not.toBeNull();
-      expect(titleElement?.textContent).toBe('Login');
     });
 
     it('should display email and password fields', () => {

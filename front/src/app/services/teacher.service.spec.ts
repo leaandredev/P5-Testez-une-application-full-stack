@@ -7,42 +7,74 @@ import { expect } from '@jest/globals';
 
 import { TeacherService } from './teacher.service';
 import { Teacher } from '../interfaces/teacher.interface';
-import { HttpClientModule } from '@angular/common/http';
-import { InMemoryDataService } from '../testing/in-memory-data.service';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 describe('TeacherService', () => {
   let service: TeacherService;
+  let httpMock: HttpTestingController;
+
+  const mockTeachers: Teacher[] = [
+    {
+      id: 456,
+      lastName: 'Doe',
+      firstName: 'John',
+      createdAt: new Date('2024-12-01T00:00:00'),
+      updatedAt: new Date('2024-12-01T00:00:00'),
+    },
+    {
+      id: 457,
+      lastName: 'Troy',
+      firstName: 'Odysseus',
+      createdAt: new Date('2024-12-08T00:00:00'),
+      updatedAt: new Date('2024-12-08T00:00:00'),
+    },
+    {
+      id: 458,
+      lastName: 'Smith',
+      firstName: 'Anna',
+      createdAt: new Date('2024-12-15T00:00:00'),
+      updatedAt: new Date('2024-12-15T00:00:00'),
+    },
+  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-          delay: 500,
-        }), // Simulated backend
-      ],
+      imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(TeacherService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    // Check that all HTTP request are handled
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch all teachers from the backend', (done) => {
+  it('should fetch all teachers', () => {
     service.all().subscribe((teachers) => {
-      expect(teachers.length).toBe(3);
-      expect(teachers[0].lastName).toBe('Doe');
-      done();
+      expect(teachers).toEqual(mockTeachers);
     });
+
+    const req = httpMock.expectOne('api/teacher');
+    expect(req.request.method).toBe('GET');
+
+    // Mock response
+    req.flush(mockTeachers);
   });
 
-  it('should fetch teacher details from the backend', (done) => {
+  it('should fetch details of a teacher', () => {
+    const mockTeacher = mockTeachers[1];
+
     service.detail('457').subscribe((teacher) => {
-      expect(teacher.lastName).toBe('Troy');
-      expect(teacher.firstName).toBe('Odysseus');
-      done();
+      expect(teacher).toEqual(mockTeacher);
     });
+
+    const req = httpMock.expectOne('api/teacher/457');
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockTeacher);
   });
 });

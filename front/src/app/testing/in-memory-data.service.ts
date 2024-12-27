@@ -43,9 +43,43 @@ export class InMemoryDataService implements InMemoryDbService {
       },
     ];
 
+    const users = [
+      {
+        id: 1,
+        email: 'admin@example.com',
+        lastName: 'Admin',
+        firstName: 'Super',
+        admin: true,
+        password: 'password123',
+        createdAt: new Date('2024-01-01T08:00:00'),
+        updatedAt: new Date('2024-01-01T08:00:00'),
+      },
+      {
+        id: 2,
+        email: 'john.doe@example.com',
+        lastName: 'Doe',
+        firstName: 'John',
+        admin: false,
+        password: 'password123',
+        createdAt: new Date('2024-02-15T10:30:00'),
+        updatedAt: new Date('2024-02-15T10:30:00'),
+      },
+      {
+        id: 3,
+        email: 'jane.smith@example.com',
+        lastName: 'Smith',
+        firstName: 'Jane',
+        admin: false,
+        password: 'password123',
+        createdAt: new Date('2024-03-10T14:45:00'),
+        updatedAt: new Date('2024-03-20T12:00:00'),
+      },
+    ];
+
     return {
       teacher: teachers,
       session: sessions,
+      user: users,
     };
   }
 }

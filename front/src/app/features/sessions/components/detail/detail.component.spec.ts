@@ -108,9 +108,9 @@ describe('DetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display html template', () => {
-    console.log(fixture.nativeElement.innerHTML);
-  });
+  // it('should display html template', () => {
+  //   console.log(fixture.nativeElement.innerHTML);
+  // });
 
   // unit test
   describe('unit test', () => {

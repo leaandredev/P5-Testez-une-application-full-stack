@@ -1,6 +1,10 @@
 {
   "extends": "@istanbuljs/nyc-config-typescript",
   "all": true,
+  "reporter": ["html", "text-summary"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "./coverage/**",
     "cypress/**",

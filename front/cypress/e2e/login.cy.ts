@@ -8,7 +8,7 @@ describe('Login spec', () => {
         lastName: 'lastName',
         admin: true,
       },
-    }).as('loginRequest');
+    });
   });
 
   it('Login successfull', () => {

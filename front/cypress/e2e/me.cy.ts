@@ -34,7 +34,7 @@ describe('Detail spec', () => {
     });
   });
 
-  describe('not admin user', () => {
+  describe('user non-admin', () => {
     beforeEach(() => {
       cy.interceptLoginResponseNotAdmin();
       cy.login('jean.dupont@yoga.com', 'notAdminPassword123!');

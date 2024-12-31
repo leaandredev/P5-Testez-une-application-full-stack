@@ -47,7 +47,7 @@ Cypress.Commands.add('initIntercepts', () => {
     statusCode: 200,
   });
 
-  // get user by id
+  // get by id
   cy.fixture('users').then((users) => {
     cy.intercept('GET', '/api/user/*', (req) => {
       const userId = Number(req.url.split('/').pop());

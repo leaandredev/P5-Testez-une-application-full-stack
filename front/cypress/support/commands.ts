@@ -1,47 +1,3 @@
-// ***********************************************
-// This example namespace declaration will help
-// with Intellisense and code completion in your
-// IDE or Text Editor.
-// ***********************************************
-// declare namespace Cypress {
-//   interface Chainable<Subject = any> {
-//     customCommand(param: any): typeof customCommand;
-//   }
-// }
-//
-// function customCommand(param: any): void {
-//   console.warn(param);
-// }
-//
-// NOTE: You can use it like so:
-// Cypress.Commands.add('customCommand', customCommand);
-//
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
 Cypress.Commands.add('interceptWithFixture', (method, url, fixturePath) => {
   cy.fixture(fixturePath).then((data) => {
     cy.intercept(
@@ -54,11 +10,42 @@ Cypress.Commands.add('interceptWithFixture', (method, url, fixturePath) => {
   });
 });
 
+Cypress.Commands.add('interceptLoginResponseForAdmin', () => {
+  // login response success
+  cy.intercept('POST', '/api/auth/login', {
+    body: {
+      id: 1,
+      username: 'userName',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      admin: true,
+    },
+  }).as('login');
+});
+
+Cypress.Commands.add('interceptLoginResponseNotAdmin', () => {
+  // login response success
+  cy.intercept('POST', '/api/auth/login', {
+    body: {
+      id: 2,
+      username: 'userName',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      admin: false,
+    },
+  }).as('login');
+});
+
 Cypress.Commands.add('initIntercepts', () => {
   //get all
   cy.interceptWithFixture('GET', '/api/session', 'sessions');
   cy.interceptWithFixture('GET', '/api/user', 'users');
   cy.interceptWithFixture('GET', '/api/teacher', 'teachers');
+
+  // delete
+  cy.intercept('DELETE', '/api/user/*', {
+    statusCode: 200,
+  });
 
   // get user by id
   cy.fixture('users').then((users) => {
@@ -85,18 +72,8 @@ Cypress.Commands.add('initIntercepts', () => {
     }).as('getTeacher');
   });
 
-  // login response success
-  cy.intercept('POST', '/api/auth/login', {
-    body: {
-      id: 1,
-      username: 'userName',
-      firstName: 'firstName',
-      lastName: 'lastName',
-      admin: true,
-    },
-  }).as('login');
-
   // register response success
+  cy.interceptLoginResponseForAdmin();
   cy.intercept('POST', '/api/auth/register', {
     body: {
       message: 'User registered successfully!',

@@ -13,6 +13,8 @@ declare namespace Cypress {
       email: string,
       password: string
     ): Chainable<void>;
+    interceptLoginResponseForAdmin(): Chainable<void>;
+    interceptLoginResponseNotAdmin(): Chainable<void>;
     initIntercepts(): Chainable<void>;
     interceptWithFixture(
       method: string,

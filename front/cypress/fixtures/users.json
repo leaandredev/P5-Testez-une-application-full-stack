@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "firstName": "Admin",
+    "lastName": "Admin",
+    "admin": true,
+    "email": "yoga@studio.com",
+    "password": "$2a$10$.Hsa/ZjUVaHqi0tp9xieMeewrnZxrZ5pQRzddUXE/WjDu2ZThe6Iq",
+    "createdAt": "2024-01-01T09:00:00Z",
+    "updatedAt": "2024-01-01T09:00:00Z"
+  },
+  {
+    "id": 2,
+    "firstName": "Jean",
+    "lastName": "Dupont",
+    "admin": false,
+    "email": "jean.dupont@yoga.com",
+    "password": "$2a$10$qy8oM/CeUBtqhv4k.2FW0eTyZRbF/.GVoPaBTR0o7xZoLvq/3uoBi",
+    "createdAt": "2024-12-31T09:00:00Z",
+    "updatedAt": "2024-12-31T09:00:00Z"
+  }
+]

@@ -55,7 +55,6 @@ describe('Detail spec', () => {
   // User is NOT an admin
   describe('user non-admin', () => {
     beforeEach(() => {
-      cy.interceptLoginResponseNotAdmin();
       cy.login('jean.dupont@yoga.com', 'notAdminPassword123!');
       cy.wait('@sessions');
       cy.contains('button', 'Detail').click();

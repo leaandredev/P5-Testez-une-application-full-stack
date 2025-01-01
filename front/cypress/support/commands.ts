@@ -46,6 +46,19 @@ Cypress.Commands.add('initIntercepts', () => {
   cy.intercept('DELETE', '/api/user/*', {
     statusCode: 200,
   });
+  cy.intercept('DELETE', '/api/session/*', {
+    statusCode: 200,
+  });
+
+  // user particiapte to session
+  cy.intercept('POST', '/api/session/*/participate/*', {
+    statusCode: 200,
+  }).as('participate');
+
+  // user unparticipate to session
+  cy.intercept('DELETE', '/api/session/*/participate/*', {
+    statusCode: 200,
+  }).as('unparticipate');
 
   // get by id
   cy.fixture('users').then((users) => {

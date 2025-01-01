@@ -4,7 +4,8 @@
     "name": "Yoga Doux Matinal",
     "description": "Une session relaxante pour bien commencer la journée.",
     "date": "2024-01-10T07:30:00Z",
-    "teacherId": 1,
+    "teacher_id": 1,
+    "users": [2],
     "createdAt": "2024-01-05T14:00:00Z",
     "updatedAt": "2024-01-05T14:00:00Z"
   },
@@ -13,7 +14,8 @@
     "name": "Yoga Dynamique",
     "description": "Une session énergisante pour booster votre énergie.",
     "date": "2024-01-11T18:00:00Z",
-    "teacherId": 2,
+    "teacher_id": 2,
+    "users": [1, 2],
     "createdAt": "2024-01-06T14:00:00Z",
     "updatedAt": "2024-01-06T14:00:00Z"
   }

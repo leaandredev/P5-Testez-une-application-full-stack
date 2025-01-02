@@ -1,6 +1,7 @@
 describe('Register spec', () => {
   beforeEach(() => {
     cy.initIntercepts();
+    // login response success
   });
 
   it('should registered then logged in successfully', () => {
@@ -12,7 +13,7 @@ describe('Register spec', () => {
     );
 
     cy.url().should('include', '/login');
-    cy.login('newemail@studio.com', 'newpassword!1234');
+    cy.login('newemail@studio.com', 'newpassword!1234', true);
     cy.url().should('include', '/sessions');
   });
 

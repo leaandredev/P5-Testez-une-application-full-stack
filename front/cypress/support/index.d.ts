@@ -6,15 +6,17 @@ declare namespace Cypress {
      * Custom command to login
      * @example cy.login('email@example.com', 'password123')
      */
-    login(email: string, password: string): Chainable<void>;
+    login(
+      email: string,
+      password: string,
+      createInterceptSessionInformation?: boolean
+    ): Chainable<void>;
     register(
       firstName: string,
       lastName: string,
       email: string,
       password: string
     ): Chainable<void>;
-    interceptLoginResponseForAdmin(): Chainable<void>;
-    interceptLoginResponseNotAdmin(): Chainable<void>;
     initIntercepts(): Chainable<void>;
     interceptWithFixture(
       method: string,

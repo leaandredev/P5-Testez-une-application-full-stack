@@ -6,34 +6,8 @@ Cypress.Commands.add('interceptWithFixture', (method, url, fixturePath) => {
         url: url,
       },
       data
-    ).as(fixturePath); // Utilise le chemin comme alias pour retrouver l'interception
+    ).as(fixturePath);
   });
-});
-
-Cypress.Commands.add('interceptLoginResponseForAdmin', () => {
-  // login response success
-  cy.intercept('POST', '/api/auth/login', {
-    body: {
-      id: 1,
-      username: 'userName',
-      firstName: 'firstName',
-      lastName: 'lastName',
-      admin: true,
-    },
-  }).as('login');
-});
-
-Cypress.Commands.add('interceptLoginResponseNotAdmin', () => {
-  // login response success
-  cy.intercept('POST', '/api/auth/login', {
-    body: {
-      id: 2,
-      username: 'userName',
-      firstName: 'firstName',
-      lastName: 'lastName',
-      admin: false,
-    },
-  }).as('login');
 });
 
 Cypress.Commands.add('initIntercepts', () => {
@@ -46,6 +20,19 @@ Cypress.Commands.add('initIntercepts', () => {
   cy.intercept('DELETE', '/api/user/*', {
     statusCode: 200,
   });
+  cy.intercept('DELETE', '/api/session/*', {
+    statusCode: 200,
+  });
+
+  // user particiapte to session
+  cy.intercept('POST', '/api/session/*/participate/*', {
+    statusCode: 200,
+  }).as('participate');
+
+  // user unparticipate to session
+  cy.intercept('DELETE', '/api/session/*/participate/*', {
+    statusCode: 200,
+  }).as('unparticipate');
 
   // get by id
   cy.fixture('users').then((users) => {
@@ -73,7 +60,6 @@ Cypress.Commands.add('initIntercepts', () => {
   });
 
   // register response success
-  cy.interceptLoginResponseForAdmin();
   cy.intercept('POST', '/api/auth/register', {
     body: {
       message: 'User registered successfully!',
@@ -81,11 +67,48 @@ Cypress.Commands.add('initIntercepts', () => {
   }).as('register');
 });
 
-Cypress.Commands.add('login', (email, password) => {
-  cy.visit('/login');
-  cy.get('input[formControlName=email]').type(email);
-  cy.get('input[formControlName=password]').type(`${password}{enter}{enter}`);
-});
+Cypress.Commands.add(
+  'login',
+  (email, password, createInterceptSessionInformation = false) => {
+    cy.fixture('users').then((users) => {
+      if (!createInterceptSessionInformation) {
+        cy.intercept('POST', '/api/auth/login', (req) => {
+          const user = users.find((u) => u.email === email);
+
+          if (user) {
+            req.reply({
+              body: {
+                id: user.id,
+                username: user.email,
+                firstName: user.first_name,
+                lastName: user.last_name,
+                admin: user.admin,
+              },
+            });
+          } else {
+            req.reply({
+              statusCode: 401,
+              body: { error: 'Invalid credentials' },
+            });
+          }
+        }).as('login');
+      } else {
+        cy.intercept('POST', '/api/auth/login', {
+          body: {
+            username: email,
+            firstName: 'newFirstName',
+            lastName: 'newLastName',
+            admin: false,
+          },
+        }).as('login');
+      }
+    });
+
+    cy.visit('/login');
+    cy.get('input[formControlName=email]').type(email);
+    cy.get('input[formControlName=password]').type(`${password}{enter}{enter}`);
+  }
+);
 
 Cypress.Commands.add('register', (firstName, lastName, email, password) => {
   cy.visit('/register');

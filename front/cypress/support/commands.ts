@@ -65,6 +65,7 @@ Cypress.Commands.add('initIntercepts', () => {
       message: 'User registered successfully!',
     },
   }).as('register');
+
 });
 
 Cypress.Commands.add(

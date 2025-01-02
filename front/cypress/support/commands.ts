@@ -6,7 +6,7 @@ Cypress.Commands.add('interceptWithFixture', (method, url, fixturePath) => {
         url: url,
       },
       data
-    ).as(fixturePath); // Utilise le chemin comme alias pour retrouver l'interception
+    ).as(fixturePath);
   });
 });
 
@@ -91,7 +91,7 @@ Cypress.Commands.add(
               body: { error: 'Invalid credentials' },
             });
           }
-        }).as('login'); // Alias pour attendre l'interception dans les tests
+        }).as('login');
       } else {
         cy.intercept('POST', '/api/auth/login', {
           body: {

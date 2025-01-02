@@ -3,6 +3,39 @@ describe('Detail spec', () => {
     cy.initIntercepts();
   });
 
+  describe('session not found', () => {
+    beforeEach(() => {
+      cy.intercept('GET', '/api/session/*', {
+        statusCode: 404,
+      });
+      cy.login('yoga@studio.com', 'test!1234');
+      cy.wait('@sessions');
+      cy.contains('button', 'Detail').click();
+    });
+
+    it('should not display the mat-card with session infos', () => {
+      cy.url().should('include', '/sessions/detail');
+      cy.get('mat-card').should('not.exist');
+    });
+  });
+
+  describe('teacher not found', () => {
+    beforeEach(() => {
+      cy.intercept('GET', '/api/teacher/*', {
+        statusCode: 404,
+      });
+      cy.login('yoga@studio.com', 'test!1234');
+      cy.wait('@sessions');
+      cy.contains('button', 'Detail').click();
+    });
+
+    it('should display the mat-card wothout teacher infos', () => {
+      cy.url().should('include', '/sessions/detail');
+      cy.get('mat-card').should('be.visible');
+      cy.contains('Margot DELAHAYE').should('not.exist');
+    });
+  });
+
   // User is an admin
   describe('user admin', () => {
     beforeEach(() => {
@@ -18,6 +51,7 @@ describe('Detail spec', () => {
     });
 
     it('should display session and teacher infos, and delete button only', () => {
+      cy.get('mat-card').should('be.visible');
       cy.contains('Yoga Doux Matinal').should('be.visible');
       cy.contains('button', 'Delete').should('be.visible');
 
@@ -28,7 +62,7 @@ describe('Detail spec', () => {
       cy.contains('1 attendees').should('be.visible');
       cy.contains('January 10, 2024').should('be.visible');
       cy.contains(
-        ' Une session relaxante pour bien commencer la journée.'
+        'Une session relaxante pour bien commencer la journée.'
       ).should('be.visible');
       cy.get('div.created')
         .contains('Create at: January 5, 2024')

@@ -30,7 +30,13 @@ public class UserServiceTests {
 
     @BeforeEach
     public void beforeEach() {
-        mockUser = new User("test@email.com", "lastName", "firstName", "passWord1234!", true);
+        mockUser = User.builder()
+                .email("test@email.com")
+                .lastName("lastName")
+                .firstName("firstName")
+                .password("password1234!")
+                .admin(true)
+                .build();
     }
 
     @Test

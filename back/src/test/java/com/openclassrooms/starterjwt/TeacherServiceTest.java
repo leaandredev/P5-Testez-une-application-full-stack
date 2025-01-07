@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,12 +39,14 @@ public class TeacherServiceTest {
         mockteachers = new ArrayList<>();
 
         mockFirstTeacher = Teacher.builder()
-                .firstName("firstTeacherFirstName")
-                .lastName("firstTeacherLastName")
+                .id(1L)
+                .firstName("Jack")
+                .lastName("DOLERTE")
                 .build();
         mockSecondTeacher = Teacher.builder()
-                .firstName("secondTeacherFirstName")
-                .lastName("secondTeacherLastName")
+                .id(2L)
+                .firstName("Lily")
+                .lastName("BLOOM")
                 .build();
 
         mockteachers.add(mockFirstTeacher);
@@ -75,7 +78,7 @@ public class TeacherServiceTest {
 
         // Assert
         assertThat(teacher).isNotNull();
-        assertThat(teacher.getFirstName()).isEqualTo("firstTeacherFirstName");
+        assertThat(teacher.getFirstName()).isEqualTo("Jack");
         verify(teacherRepository).findById(mockFirstTeacher.getId());
     }
 

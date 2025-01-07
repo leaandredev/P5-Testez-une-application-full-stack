@@ -31,9 +31,10 @@ public class UserServiceTests {
     @BeforeEach
     public void beforeEach() {
         mockUser = User.builder()
+                .id(1L)
                 .email("test@email.com")
-                .lastName("lastName")
-                .firstName("firstName")
+                .firstName("Deborah")
+                .lastName("GOLD")
                 .password("password1234!")
                 .admin(true)
                 .build();
@@ -58,7 +59,7 @@ public class UserServiceTests {
 
         // Assert
         assertThat(user).isNotNull();
-        assertThat(user.getLastName()).isEqualTo("lastName");
+        assertThat(user.getLastName()).isEqualTo("GOLD");
         verify(userRepository).findById(mockUser.getId());
     }
 

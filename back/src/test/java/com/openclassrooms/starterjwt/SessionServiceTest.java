@@ -275,4 +275,22 @@ public class SessionServiceTest {
             sessionService.noLongerParticipate(mockFirstSession.getId(), mockSecondUser.getId());
         }).isInstanceOf(BadRequestException.class);
     }
+
+    @Test
+    public void testNoLongerParticipateMultipleUsers() {
+        // Arrange
+        mockFirstSession.setUsers(List.of(mockFirstUser, mockSecondUser)); // Session avec plusieurs utilisateurs
+        when(sessionRepository.findById(mockFirstSession.getId())).thenReturn(Optional.of(mockFirstSession));
+        when(sessionRepository.save(mockFirstSession)).thenReturn(mockFirstSession);
+
+        // Act
+        sessionService.noLongerParticipate(mockFirstSession.getId(), mockFirstUser.getId());
+
+        // Assert
+        assertThat(mockFirstSession.getUsers()).contains(mockSecondUser); // Vérifie que l'autre utilisateur reste
+        assertThat(mockFirstSession.getUsers()).doesNotContain(mockFirstUser);
+        verify(sessionRepository).findById(mockFirstSession.getId());
+        verify(sessionRepository).save(mockFirstSession);
+    }
+
 }

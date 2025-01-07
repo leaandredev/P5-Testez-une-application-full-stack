@@ -1,4 +1,4 @@
-package com.openclassrooms.starterjwt;
+package com.openclassrooms.starterjwt.services;
 
 import static org.mockito.Mockito.*;
 
@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.repository.UserRepository;
-import com.openclassrooms.starterjwt.services.UserService;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTests {

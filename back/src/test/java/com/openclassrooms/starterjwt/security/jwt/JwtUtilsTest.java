@@ -24,7 +24,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @ExtendWith(MockitoExtension.class)
-
 public class JwtUtilsTest {
 
     private TestLogAppender logAppender;

@@ -72,10 +72,10 @@ VALUES
 INSERT INTO USERS (first_name, last_name, admin, email, password) 
 VALUES 
     ('Admin', 'Admin', true, 'yoga@studio.com', '$2a$10$.Hsa/ZjUVaHqi0tp9xieMeewrnZxrZ5pQRzddUXE/WjDu2ZThe6Iq'), -- Admin existant
-    ('Alice', 'Martin', false, 'alice.martin@example.com', '$2a$10$abcdefghijklmnopqrstuv'), -- Non admin
-    ('Bob', 'Dupont', false, 'bob.dupont@example.com', '$2a$10$qrstuvwxyzabcdefghijklm'), -- Non admin
-    ('Claire', 'Durand', false, 'claire.durand@example.com', '$2a$10$mnopqrstuvabcdefghijklm'), -- Non admin
-    ('David', 'Leclerc', false, 'david.leclerc@example.com', '$2a$10$opqrstuvwxyabcdefghijklmn'); -- Non admin
+    ('Alice', 'Martin', false, 'alice.martin@example.com', '$2a$10$.Hsa/ZjUVaHqi0tp9xieMeewrnZxrZ5pQRzddUXE/WjDu2ZThe6Iq'), -- Non admin
+    ('Bob', 'Dupont', false, 'bob.dupont@example.com', '$2a$10$.Hsa/ZjUVaHqi0tp9xieMeewrnZxrZ5pQRzddUXE/WjDu2ZThe6Iq'), -- Non admin
+    ('Claire', 'Durand', false, 'claire.durand@example.com', '$2a$10$.Hsa/ZjUVaHqi0tp9xieMeewrnZxrZ5pQRzddUXE/WjDu2ZThe6Iq'), -- Non admin
+    ('David', 'Leclerc', false, 'david.leclerc@example.com', '$2a$10$.Hsa/ZjUVaHqi0tp9xieMeewrnZxrZ5pQRzddUXE/WjDu2ZThe6Iq'); -- Non admin
 
 -- Création des sessions
 INSERT INTO SESSIONS (name, description, date, teacher_id) 

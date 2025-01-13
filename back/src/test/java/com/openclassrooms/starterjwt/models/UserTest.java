@@ -25,6 +25,7 @@ public class UserTest {
 
     @Test
     void testValidUser() {
+        // Act
         User user = User.builder()
                 .email("test@example.com")
                 .lastName("Doe")
@@ -35,11 +36,13 @@ public class UserTest {
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
+        // Assert
         assertThat(violations).isEmpty();
     }
 
     @Test
     void testLombokGeneratedMethods() {
+        // Act
         User user = User.builder()
                 .id(1L)
                 .email("test@example.com")
@@ -51,11 +54,11 @@ public class UserTest {
                 .updatedAt(LocalDateTime.now())
                 .build();
 
+        // Assert
         assertThat(user).isNotNull();
         assertThat(user.getEmail()).isEqualTo("test@example.com");
         assertThat(user.isAdmin()).isTrue();
 
-        // Test @ToString
         String userString = user.toString();
         assertThat(userString).contains("id=1");
         assertThat(userString).contains("email=test@example.com");
@@ -90,6 +93,8 @@ public class UserTest {
 
     @Test
     void testDataAnnotation() {
+        LocalDateTime now = LocalDateTime.now();
+
         User user = new User();
         user.setId(1L);
         user.setEmail("test@example.com");
@@ -97,6 +102,8 @@ public class UserTest {
         user.setLastName("Doe");
         user.setPassword("password123");
         user.setAdmin(true);
+        user.setCreatedAt(now);
+        user.setUpdatedAt(now);
 
         assertThat(user.getId()).isEqualTo(1L);
         assertThat(user.getEmail()).isEqualTo("test@example.com");
@@ -104,6 +111,8 @@ public class UserTest {
         assertThat(user.getLastName()).isEqualTo("Doe");
         assertThat(user.getPassword()).isEqualTo("password123");
         assertThat(user.isAdmin()).isTrue();
+        assertThat(user.getCreatedAt()).isEqualTo(now);
+        assertThat(user.getUpdatedAt()).isEqualTo(now);
     }
 
     @Test

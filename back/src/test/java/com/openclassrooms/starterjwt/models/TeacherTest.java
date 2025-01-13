@@ -55,14 +55,20 @@ class TeacherTest {
 
     @Test
     void testDataAnnotation() {
+        LocalDateTime now = LocalDateTime.now();
+
         Teacher teacher = new Teacher();
         teacher.setId(1L);
         teacher.setLastName("Doe");
         teacher.setFirstName("John");
+        teacher.setCreatedAt(now);
+        teacher.setUpdatedAt(now);
 
         assertThat(teacher.getId()).isEqualTo(1L);
         assertThat(teacher.getLastName()).isEqualTo("Doe");
         assertThat(teacher.getFirstName()).isEqualTo("John");
+        assertThat(teacher.getCreatedAt()).isEqualTo(now);
+        assertThat(teacher.getUpdatedAt()).isEqualTo(now);
     }
 
     @Test

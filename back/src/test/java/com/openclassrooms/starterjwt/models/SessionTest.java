@@ -1,5 +1,6 @@
 package com.openclassrooms.starterjwt.models;
 
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -105,15 +106,20 @@ class SessionTest {
 
     @Test
     void testDataAnnotation() {
+        LocalDateTime now = LocalDateTime.now();
         Session session = new Session();
         session.setId(1L);
         session.setName("Yoga Session");
         session.setDate(new Date());
         session.setDescription("A relaxing yoga session");
+        session.setCreatedAt(now);
+        session.setUpdatedAt(now);
 
         assertThat(session.getId()).isEqualTo(1L);
         assertThat(session.getName()).isEqualTo("Yoga Session");
         assertThat(session.getDescription()).isEqualTo("A relaxing yoga session");
+        assertThat(session.getCreatedAt()).isEqualTo(now);
+        assertThat(session.getUpdatedAt()).isEqualTo(now);
     }
 
     @Test

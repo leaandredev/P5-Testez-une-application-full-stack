@@ -64,6 +64,11 @@ class AuthEntryPointJwtTest {
             public boolean isReady() {
                 return true;
             }
+
+            @Override
+            public void setWriteListener(WriteListener listener) {
+                // Not necessary
+            }
         };
         when(response.getOutputStream()).thenReturn(servletOutputStream);
 

@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -81,6 +79,7 @@ class AuthEntryPointJwtTest {
 
         // Check JSON content
         String jsonResponse = outputStream.toString();
+        @SuppressWarnings("unchecked")
         Map<String, Object> responseBody = objectMapper.readValue(jsonResponse, Map.class);
 
         assertThat(responseBody)

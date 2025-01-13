@@ -1,8 +1,5 @@
 package com.openclassrooms.starterjwt.mapper;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;

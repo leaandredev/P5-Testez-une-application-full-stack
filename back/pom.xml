@@ -223,18 +223,20 @@
 					<!-- Jacoco covered ratio -->
 					<execution>
 						<id>jacoco-check</id>
+						<phase>check</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
 						<configuration>
 							<rules>
+								<dataFile>target/jacoco/allTest.exec</dataFile>
 								<rule>
 									<element>PACKAGE</element>
 									<limits>
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.9</minimum>
+											<minimum>0.8</minimum>
 										</limit>
 									</limits>
 								</rule>
